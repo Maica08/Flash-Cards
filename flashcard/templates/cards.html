@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  <section class="navbar">
+    <a href="{% url 'home' %}" class="nb-btn">Home</a>
+    <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
+    <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
+    <a href="{% url 'cards-list' %}" class="nb-btn" id="active">Cards</a>
+    {% comment %} <a href="{% url '' %}" class="nb-btn" id="active">Quizzes</a>
+    <a href="{% url '' %}" class="nb-btn" id="active">Reviews</a> {% endcomment %}
+  </section>
+{% endblock navbar %}
+
+{% block content %}
+  {% regroup object_list by topic as grouped_cards %}
+
+  {% for topic_group in grouped_cards %}
+    <h2><a href={% url 'cards_in_topic' subject_id=topic_group.grouper.subject.id topic_id=topic_group.grouper.id %}>Topic: {{ topic_group.grouper }}</a></h2>
+
+    {% for card in topic_group.list %}
+      <div class="card">
+        <div class="front">
+          <h4>{{ card.front }}</h4>
+        </div>
+        <div class="back">
+          <p>{{ card.back }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  {% endfor %}
+{% endblock content %}

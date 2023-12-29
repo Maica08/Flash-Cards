@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  <section class="navbar">
+    <a href="{% url 'home' %}" class="nb-btn" id="active">Home</a>
+    <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
+    <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
+    <a href="{% url 'cards-list' %}" class="nb-btn">Cards</a>
+    {% comment %} <a href="{% url '' %}" class="nb-btn" id="active">Quizzes</a>
+    <a href="{% url '' %}" class="nb-btn" id="active">Reviews</a> {% endcomment %}
+  </section>
+{% endblock navbar %}
+
+{% block content %}
+  <h1 class="home-greet">Welcome User!</h1>
+  <br/>
+  <section class="home-body">
+    {% for object in object_list %}
+      <div class="home-card"> <!--card-->
+        <div class="card-img"> <!--card__image-->
+          <div class="text">
+            <p>{{object.back}}</p> <!--img-->
+          </div>
+        </div>
+        <div class="card-content"> <!--card__content-->
+          <h3>{{object.front}}</h3> <!--card__title-->
+          <h4>{{object.topic}}</h4> <!--card__text-->
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+{% endblock content %}

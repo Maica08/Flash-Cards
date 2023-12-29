@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  <section class="navbar">
+    <a href="{% url 'home' %}" class="nb-btn">Home</a>
+    <a href="{% url 'subject-list' %}" class="nb-btn" id="active">Subjects</a>
+    <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
+    <a href="{% url 'cards-list' %}" class="nb-btn">Cards</a>
+    {% comment %} <a href="{% url '' %}" class="nb-btn" id="active">Quizzes</a>
+    <a href="{% url '' %}" class="nb-btn" id="active">Reviews</a> {% endcomment %}
+  </section>
+{% endblock navbar %}
+
+{% block content %}
+
+  <h2 class="subject">Subjects List</h2>
+  <div class="subject-body">
+    {% for object in object_list %}
+      <div class="subjects-list">
+        <a id="sub" href={% url 'topics_in_subject' object.id %}>{{object.subject}}</a>
+      </div>
+    {% endfor %}  
+  </div>
+
+{% endblock content %}
