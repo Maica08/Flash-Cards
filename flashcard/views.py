@@ -43,6 +43,23 @@ class TopicList(ListView):
     model = Topic
     context_object_name = "topic"
     template_name = "topics.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Retrieve all topics and organize them by subject
+        topics = Topic.objects.all()
+        grouped_topics = {}
+        for topic in topics:
+            subject = topic.subject
+            if subject not in grouped_topics:
+                grouped_topics[subject] = []
+            grouped_topics[subject].append(topic)
+
+        # Convert the dictionary to a list for regrouping in the template
+        context['grouped_topics'] = [{'grouper': subject, 'list': topics} for subject, topics in grouped_topics.items()]
+
+        return context
         
     
 class CardsInTopics(ListView):
@@ -67,5 +84,19 @@ class CardList(ListView):
     context_object_name = "card"
     template_name = "cards.html"
 
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        cards = Card.objects.all()
+        grouped_cards = {}
+        for card in cards:
+            topic = card.topic
+            if topic not in grouped_cards:
+                grouped_cards[topic] = []
+            grouped_cards[topic].append(card)
+
+        context['grouped_cards'] = [{'grouper': topic, 'list': cards} for topic, cards in grouped_cards.items()]
+
+        return context
+        
 

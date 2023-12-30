@@ -12,20 +12,27 @@
 {% endblock navbar %}
 
 {% block content %}
-  {% regroup object_list by topic as grouped_cards %}
 
-  {% for topic_group in grouped_cards %}
-    <h2><a href={% url 'cards_in_topic' subject_id=topic_group.grouper.subject.id topic_id=topic_group.grouper.id %}>Topic: {{ topic_group.grouper }}</a></h2>
-
-    {% for card in topic_group.list %}
-      <div class="card">
-        <div class="front">
-          <h4>{{ card.front }}</h4>
+  <h2 class="list">List of Cards</h2>
+  <div class="card-body"> 
+    {% for topic in grouped_cards %}
+      <h2><a href={% url 'cards_in_topic' subject_id=topic.grouper.subject.id topic_id=topic.grouper.id %}>Topic: {{ topic.grouper }}</a></h2>
+      
+      <div class="cards">
+      {% for card in topic.list %}
+        <div class="card">
+          <div class="card-inner">
+            <div class="front">
+              <h4>{{ card.front }}</h4>
+            </div>
+            <div class="back">
+              <p>{{ card.back }}</p>
+            </div>
+          </div>
         </div>
-        <div class="back">
-          <p>{{ card.back }}</p>
-        </div>
+      {% endfor %}
       </div>
     {% endfor %}
-  {% endfor %}
+  </div>
+
 {% endblock content %}

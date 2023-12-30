@@ -12,12 +12,20 @@
 {% endblock navbar %}
 
 {% block content %}
-  <h2>List of Topics</h2>
-  <ul>
-    {% for object in object_list %}
-      <p><a href={% url 'topics_in_subject' object.id %}>{{object.subject}}</a><p>
-       <li><a href={% url 'cards_in_topic' subject_id=object.subject.id topic_id=object.id %}>{{object.topic}}</a></li>
-      {% endfor %}
-  </ul>
+  <h2 class="list">List of Topics</h2>
+
+  <div class="topic-body">
+    {% for subject in grouped_topics %} 
+        <h3><a href="{% url 'topics_in_subject' subject.grouper.id %}">Topics for {{ subject.grouper }}</a></h3>
+
+        <div class="topic-container">
+            {% for topic in subject.list %}
+                <h4><a href="{% url 'cards_in_topic' subject_id=topic.subject.id topic_id=topic.id %}">{{ topic }}</a></h4>
+            {% endfor %} 
+        </div>
+    {% endfor %}  
+
+  </div>
+
 {% endblock content %}
 
