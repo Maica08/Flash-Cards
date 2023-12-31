@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block navbar %}
+  <section class="navbar">
+    <a href="{% url 'home' %}" class="nb-btn">Home</a>
+    <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
+    <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
+    <a href="{% url 'cards-list' %}" class="nb-btn">Cards</a>
+    <a href="{% url 'quiz-list' %}" class="nb-btn">Quizzes</a>
+  </section>
+{% endblock navbar %}
+
+{% block content %}
+  <h1>{{ quiz.name }} - Results</h1>
+
+  {% for question in questions %}
+    <h2>{{ question.card.back }}</h2>
+    
+    {% for choice in question.choice_set.all %}
+      {% with selected_choice_id=selected_choices|default:0|get:question.id %}
+        <label {% if choice.is_correct %}
+          style="color: green;"
+        {% elif choice.id == selected_choice_id %}
+          style="color: red;"
+        {% endif %}>
+          <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}" {% if choice.id == selected_choice_id %}checked{% endif %} disabled>
+          {{ choice.card.front }}
+        </label><br>
+      {% endwith %}
+    {% endfor %}
+  {% endfor %}
+
+  <h3>Your score: {{ score }}/{{questions|length}}</h3>
+
+{% endblock %}

@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 
 {% block navbar %}
+<section class="navbar">
+  <a href="{% url 'home' %}" class="nb-btn">Home</a>
+  <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
+  <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
+  <a href="{% url 'cards-list' %}" class="nb-btn">Cards</a>
+  <a href="{% url 'quiz-list' %}" class="nb-btn">Quizzes</a>
+</section>
 {% endblock navbar %}
 
 {% block content %}
-  <h2>Topics for {{subject.subject}}</h2>
-  <ul>
+  <h2 class="tip-title">Topics for {{subject.subject}}</h2>
+  <div class="topics-in-subject">
+    <p class="total">Total of {{object_list|length}} topics</p>
     {% for object in object_list %}
-      <li><a href={% url 'cards_in_topic' subject_id=subject.id topic_id=object.id %}>{{object.topic}}</a></li>
+      <h4><a href={% url 'cards_in_topic' subject_id=subject.id topic_id=object.id %}>{{forloop.counter}}. {{object.topic}}</a></h4>
     {% endfor %}
-  </ul>
+
+  </div>
 {% endblock content %}

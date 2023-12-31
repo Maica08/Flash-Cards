@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  <section class="navbar">
+    <a href="{% url 'home' %}" class="nb-btn">Home</a>
+    <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
+    <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
+    <a href="{% url 'cards-list' %}" class="nb-btn">Cards</a>
+    <a href="{% url 'quiz-list' %}" class="nb-btn" id="active">Quizzes</a>
+  </section>
+{% endblock navbar %}
+
+{% block content %}
+  <h2 class="flashcard-quiz">Flashcards for {{quiz.name}}</h2>
+  <div class="flashcard-container">
+    {% for object in object_list %}
+      <div class="flashcard">
+        <p>{{forloop.counter}}. {{object.back}}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <p><a href={% url 'flash_quiz' quiz_id=quiz.id %} target='_blank'>Take Quiz</a></p>
+{% endblock content %}

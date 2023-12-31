@@ -226,7 +226,7 @@ a {
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.subjects-list:hover #sub, .topic-body a:hover, .card-body h2 a:hover{
+.subjects-list:hover #sub, .topic-body a:hover, .card-body h2 a:hover, .topics-in-subject a:hover{
     color: lightcoral;
     text-decoration: underline;
 }
@@ -387,9 +387,9 @@ a {
 
 .cards-in-topic {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 70%;
-  height: 80%;
+  min-height: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2%;
@@ -408,3 +408,40 @@ a {
   margin-right: 20px;
 }
 
+/* topics-in-subject page */
+
+.tip-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.topics-in-subject {
+  width: 70%;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  background-color: #cbc0d3ad;
+  padding: 1.5%;
+  overflow: hidden;
+  border-radius: 3px;
+  border: solid 2px #c2a2b8;
+}
+
+.topics-in-subject h4 {
+  font-size: 30px;
+  margin: 2%;
+}
+
+.topics-in-subject a {
+  text-decoration: none;
+  color: black;
+}
+
+.total {
+  margin: 2%;
+  font-size: 25px;
+  color: #323841;
+  font-weight: 500;
+}

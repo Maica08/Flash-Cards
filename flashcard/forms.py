@@ -27,8 +27,14 @@ class QuizForm(ModelForm):
         fields = "__all__"
 
 
-class ReviewForm(ModelForm):
+class QuestionForm(ModelForm):
     class Meta:
-        model = Review
+        model = Question
+        fields = "__all__"
+
+
+class ChoiceForm(ModelForm):
+    class Meta:
+        model = Choice
         fields = "__all__"
 

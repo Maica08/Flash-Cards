@@ -26,8 +26,14 @@ class QuizAdmin(admin.ModelAdmin):
     model = Quiz
     list_display = ('name', 'topic', 'created_at', 'updated_at')   
 
-
-@admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
-    model = Review
-    list_display = ('topic', 'created_at', 'updated_at')   
+    
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    model = Question
+    list_display = ('quiz', 'card', 'created_at', 'updated_at')
+    
+    
+@admin.register(Choice)
+class ChoiceAdmin(admin.ModelAdmin):
+    model = Choice
+    list_display = ('question', 'card', 'is_correct', 'created_at', 'updated_at')
