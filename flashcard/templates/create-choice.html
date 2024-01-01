@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p class="add">Add a new choice:</p>
+
+  <form action="{% url 'choice_add' %}" method='post' class="add-field">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button name="submit" class="add-button">Add choice</button>
+  </form>
+
+{% endblock content %}

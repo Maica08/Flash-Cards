@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p class="add">Add a new topic:</p>
+
+  <form action="{% url 'topic_add' %}" method='post' class="add-field">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button name="submit" class="add-button">Add topic</button>
+  </form>
+
+{% endblock content %}

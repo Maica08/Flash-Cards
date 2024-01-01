@@ -54,7 +54,7 @@ class Question(BaseModel):
     card = models.ForeignKey(Card,null=True, blank=True, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.card.front
+        return self.card.back
 
 
 class Choice(BaseModel):

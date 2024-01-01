@@ -11,12 +11,17 @@
 {% endblock navbar %}
 
 {% block content %}
+ <button type="button" class="btn btn-add" id="subject"><a href={% url "subject_add" %}>Add subject</a></button>
 
   <h2 class="list">Subjects List</h2>
   <div class="subject-body">
     {% for object in object_list %}
       <div class="subjects-list">
         <a id="sub" href={% url 'topics_in_subject' object.id %}>{{object.subject}}</a>
+        <p>
+          <a class="edit-item" id="subject" href="{{object.id}}">Edit</a> | 
+          <a class="del-item" id="subject" href="{{object.id}}/delete">Delete</a>
+        </p>
       </div>
     {% endfor %}  
   </div>

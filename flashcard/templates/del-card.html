@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+  <p class="del">Delete card:</p>
+
+  <form method='post'>
+    {% csrf_token %}
+    <p class='del-m'>Are you sure that you want to delete card "{{object}}"?</p>
+    <div>
+      <button type="submit" class='confirm'>Confirm</button>
+      <a href="{% url 'cards-list' %}" class='cancel'>Cancel</a>
+    </div>
+  </form>
+
+{% endblock content %}

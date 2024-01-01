@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+
+  <h2 class="list">List of Choices</h2>
+  <p><a href="{% url "quiz-list" %}">Go back</a></p>
+
+  <button type="button" class="btn btn-add" id="choice"><a href={% url 'choice_add' %}>Add choice</a></button>
+
+  <div class="quiz-questions-choices">
+    {% for grouped_choice in grouped_choices %}
+      <h2>Quiz: {{ grouped_choice.quiz }}</h2>
+      {% for question_group in grouped_choice.questions %}
+        <h3>Question: {{ question_group.question }}</h3>
+        {% for choice in question_group.choices %}
+          <p>{{ forloop.counter }}. {{ choice.card.front }}</p>
+          <p>
+            <a class="edit-item" id="choice" href="{{ choice.id }}">Edit</a> | 
+            <a class="del-item" id="choice" href="{{ choice.id }}/delete">Delete</a>
+          </p> 
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endblock content %}

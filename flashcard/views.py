@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 
@@ -35,6 +36,33 @@ class SubjectList(ListView):
     def get_queryset(self):
         return Subject.objects.filter(user=self.request.user)
 
+
+@method_decorator(login_required, name='dispatch')
+class SubjectCreateView(CreateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = "create-subject.html"
+    success_url = reverse_lazy("subject-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+        
+
+@method_decorator(login_required, name='dispatch')
+class SubjectUpdateView(UpdateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = "update-subject.html"
+    success_url = reverse_lazy("subject-list")
+    
+
+@method_decorator(login_required, name='dispatch')
+class SubjectDeleteView(DeleteView):
+    model = Subject
+    template_name = "del-subject.html"
+    success_url = reverse_lazy("subject-list")
+    
 
 @method_decorator(login_required, name='dispatch')    
 class TopicsInSubject(ListView):
@@ -66,7 +94,6 @@ class TopicList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Retrieve all topics and organize them by subject
         topics = Topic.objects.filter(user=self.request.user)
         grouped_topics = {}
         for topic in topics:
@@ -75,12 +102,37 @@ class TopicList(ListView):
                 grouped_topics[subject] = []
             grouped_topics[subject].append(topic)
 
-        # Convert the dictionary to a list for regrouping in the template
         context['grouped_topics'] = [{'grouper': subject, 'list': topics} for subject, topics in grouped_topics.items()]
 
         return context
     
+    
+@method_decorator(login_required, name='dispatch')
+class TopicCreateView(CreateView):
+    model = Topic
+    form_class = TopicForm
+    template_name = "create-topic.html"
+    success_url = reverse_lazy("topic-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
         
+
+@method_decorator(login_required, name='dispatch')
+class TopicUpdateView(UpdateView):
+    model = Topic
+    form_class = TopicForm
+    template_name = "update-topic.html"
+    success_url = reverse_lazy("topic-list")
+    
+
+@method_decorator(login_required, name='dispatch')
+class TopicDeleteView(DeleteView):
+    model = Topic
+    template_name = "del-topic.html"
+    success_url = reverse_lazy("topic-list")
+    
 
 @method_decorator(login_required, name='dispatch')    
 class CardsInTopics(ListView):
@@ -124,7 +176,33 @@ class CardList(ListView):
 
         return context
     
+
+@method_decorator(login_required, name='dispatch')
+class CardCreateView(CreateView):
+    model = Card
+    form_class = CardForm
+    template_name = "create-card.html"
+    success_url = reverse_lazy("cards-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
         
+
+@method_decorator(login_required, name='dispatch')
+class CardUpdateView(UpdateView):
+    model = Card
+    form_class = CardForm
+    template_name = "update-card.html"
+    success_url = reverse_lazy("cards-list")
+    
+
+@method_decorator(login_required, name='dispatch')
+class CardDeleteView(DeleteView):
+    model = Card
+    template_name = "del-card.html"
+    success_url = reverse_lazy("cards-list")
+    
 
 @method_decorator(login_required, name='dispatch')        
 class QuizList(ListView):
@@ -134,6 +212,34 @@ class QuizList(ListView):
     
     def get_queryset(self):
         return Quiz.objects.filter(user=self.request.user)
+    
+
+@method_decorator(login_required, name='dispatch')
+class QuizCreateView(CreateView):
+    model = Quiz
+    form_class = QuizForm
+    template_name = "create-quiz.html"
+    success_url = reverse_lazy("quiz-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+        
+
+@method_decorator(login_required, name='dispatch')
+class QuizUpdateView(UpdateView):
+    model = Quiz
+    form_class = QuizForm
+    template_name = "update-quiz.html"
+    success_url = reverse_lazy("quiz-list")
+    
+
+@method_decorator(login_required, name='dispatch')
+class QuizDeleteView(DeleteView):
+    model = Quiz
+    template_name = "del-quiz.html"
+    success_url = reverse_lazy("quiz-list")
+    
 
 @method_decorator(login_required, name='dispatch')
 class CardsInQuiz(ListView):
@@ -154,17 +260,123 @@ class CardsInQuiz(ListView):
 
 
 @method_decorator(login_required, name='dispatch')
+class QuestionList(ListView):
+    model = Question
+    context_object_name = "question"
+    template_name = "questions.html"
+    
+    def get_queryset(self):
+        return Question.objects.filter(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        questions = Question.objects.filter(user=self.request.user)
+        grouped_questions = {}
+        for question in questions:
+            quiz = question.quiz
+            if quiz not in grouped_questions:
+                grouped_questions[quiz] = []   
+            grouped_questions[quiz].append(question)
+
+        context['grouped_questions'] = [{'grouper': quiz, 'list': questions} for quiz, questions in grouped_questions.items()]
+
+        return context
+
+@method_decorator(login_required, name='dispatch')
+class QuestionCreateView(CreateView):
+    model = Question
+    form_class = QuestionForm
+    template_name = "create-question.html"
+    success_url = reverse_lazy("question-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+        
+
+@method_decorator(login_required, name='dispatch')
+class QuestionUpdateView(UpdateView):
+    model = Question
+    form_class = QuestionForm
+    template_name = "update-question.html"
+    success_url = reverse_lazy("question-list")
+    
+
+@method_decorator(login_required, name='dispatch')
+class QuestionDeleteView(DeleteView):
+    model = Question
+    template_name = "del-question.html"
+    success_url = reverse_lazy("question-list")
+    
+
+@method_decorator(login_required, name='dispatch')
+class ChoiceList(ListView):
+    model = Choice
+    context_object_name = "choice"
+    template_name = "choices.html"
+    
+    def get_queryset(self):
+        return Choice.objects.filter(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        choices = Choice.objects.filter(user=self.request.user)
+        grouped_choices = {}
+        
+        for choice in choices:
+            question = choice.question
+            quiz = question.quiz
+            
+            if quiz not in grouped_choices:
+                grouped_choices[quiz] = {}
+
+            if question not in grouped_choices[quiz]:
+                grouped_choices[quiz][question] = []
+
+            grouped_choices[quiz][question].append(choice)
+
+        context['grouped_choices'] = [{'quiz': quiz, 'questions': [{'question': question, 'choices': choices} for question, choices in choices.items()]} for quiz, choices in grouped_choices.items()]
+
+        return context
+    
+
+@method_decorator(login_required, name='dispatch')
+class ChoiceCreateView(CreateView):
+    model = Choice
+    form_class = ChoiceForm
+    template_name = "create-choice.html"
+    success_url = reverse_lazy("choice-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+        
+
+@method_decorator(login_required, name='dispatch')
+class ChoiceUpdateView(UpdateView):
+    model = Choice
+    form_class = ChoiceForm
+    template_name = "update-choice.html"
+    success_url = reverse_lazy("choice-list")
+    
+
+@method_decorator(login_required, name='dispatch')
+class ChoiceDeleteView(DeleteView):
+    model = Choice
+    template_name = "del-choice.html"
+    success_url = reverse_lazy("choice-list")
+    
+
+@method_decorator(login_required, name='dispatch')
 class FlashQuiz(View):
     template_name = "flash-quiz.html"
 
     def get(self, request, *args, **kwargs):
         quiz_id = kwargs.get('quiz_id')
         quiz = get_object_or_404(Quiz, id=quiz_id)
-        # cards = Card.objects.filter(flash_quiz=quiz)
-
-        # # Debugging: Print cards to the console
-        # print("Cards:", cards)
-
         questions = Question.objects.filter(user=self.request.user, quiz=quiz)
         
         print("Questions:", questions)
@@ -185,7 +397,6 @@ class SubmitQuiz(View):
         quiz = get_object_or_404(Quiz, id=quiz_id)
         questions = Question.objects.filter(user=self.request.user, card__in=quiz.card_set.all())
 
-        # Retrieve selected choices from the form data
         score = 0
         selected_choices = {}
         for question in questions:

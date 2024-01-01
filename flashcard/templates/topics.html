@@ -14,12 +14,18 @@
   <h2 class="list">List of Topics</h2>
 
   <div class="topic-body">
+    <button type="button" class="btn btn-add" id="topic"><a href={% url "topic_add" %}>Add topic</a></button>
     {% for subject in grouped_topics %} 
         <h3><a href="{% url 'topics_in_subject' subject.grouper.id %}">Topics for {{ subject.grouper }}</a></h3>
 
         <div class="topic-container">
+
             {% for topic in subject.list %}
                 <h4><a href="{% url 'cards_in_topic' subject_id=topic.subject.id topic_id=topic.id %}">{{ topic }}</a></h4>
+                <p>
+                  <a class="edit-item" id="topic" href="{{topic.id}}">Edit</a> | 
+                  <a class="del-item" id="topic" href="{{topic.id}}/delete">Delete</a>
+                </p>
             {% endfor %} 
         </div>
     {% endfor %}  

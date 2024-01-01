@@ -14,6 +14,7 @@
 
   <h2 class="list">List of Cards</h2>
   <div class="card-body"> 
+    <button type="button" class="btn btn-add" id="card"><a href={% url "card_add" %}>Add card</a></button>
     {% for topic in grouped_cards %}
       <h2><a href={% url 'cards_in_topic' subject_id=topic.grouper.subject.id topic_id=topic.grouper.id %}>Topic: {{ topic.grouper }}</a></h2>
       
@@ -26,9 +27,13 @@
             </div>
             <div class="back">
               <p>{{ card.back }}</p>
-            </div>
+            </div> 
           </div>
         </div>
+        <p>
+          <a class="edit-item" id="card" href="{{card.id}}">Edit</a> | 
+          <a class="del-item" id="card" href="{{card.id}}/delete">Delete</a>
+        </p> 
       {% endfor %}
       </div>
     {% endfor %}
