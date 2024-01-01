@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     
     class Meta:
         abstract = True
