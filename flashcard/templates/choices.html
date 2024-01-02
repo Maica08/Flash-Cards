@@ -1,28 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block navbar %}
 {% endblock navbar %}
 
 {% block content %}
-
+  <p id="back"><a href="{% url "quiz-list" %}">Go back</a></p>
   <h2 class="list">List of Choices</h2>
-  <p><a href="{% url "quiz-list" %}">Go back</a></p>
 
-  <button type="button" class="btn btn-add" id="choice"><a href={% url 'choice_add' %}>Add choice</a></button>
+  <button type="button" class="btn btn-add" id="add-choice"><a href={% url 'choice_add' %}>
+    <img src="{% static 'img/add.png' %}" alt='add icon'></a>
+    Add Choice
+  </button>
 
   <div class="quiz-questions-choices">
     {% for grouped_choice in grouped_choices %}
       <h2>Quiz: {{ grouped_choice.quiz }}</h2>
-      {% for question_group in grouped_choice.questions %}
-        <h3>Question: {{ question_group.question }}</h3>
-        {% for choice in question_group.choices %}
-          <p>{{ forloop.counter }}. {{ choice.card.front }}</p>
-          <p>
-            <a class="edit-item" id="choice" href="{{ choice.id }}">Edit</a> | 
-            <a class="del-item" id="choice" href="{{ choice.id }}/delete">Delete</a>
-          </p> 
+      <div class="question-choices">
+        {% for question_group in grouped_choice.questions %}
+          <h3>Question: {{ question_group.question }}</h3>
+          {% for choice in question_group.choices %}
+            <p>
+              <a class="edit-item" id="choice" href="{{ choice.id }}"><img src='{% static "img/edit.png" %}' /></a>
+              <a class="del-item" id="choice" href="{{ choice.id }}/delete"><img src='{% static "img/del.png" %}' /></a>
+              {{ forloop.counter }}. {{ choice.card.front }}</p>
+          {% endfor %}
         {% endfor %}
-      {% endfor %}
+      </div>
     {% endfor %}
   </div>
 {% endblock content %}

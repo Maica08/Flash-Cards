@@ -1,32 +1,43 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block navbar %}
   <section class="navbar">
+    <h3 class="logo" id="logo-navbar">StudyStack</h3>
     <a href="{% url 'home' %}" class="nb-btn">Home</a>
     <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
     <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
     <a href="{% url 'cards-list' %}" class="nb-btn">Cards</a>
     <a href="{% url 'quiz-list' %}" class="nb-btn" id="active">Quizzes</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
   </section>
 {% endblock navbar %}
 
 {% block content %}
-  <h2 class="quiz-list">Quizzes</h2>
-  <button type="button" class="btn btn-add" id="quiz"><a href={% url "quiz_add" %}>Add quiz</a></button>
-  <p>
-    <a class="view-q" href={% url "question-list" %}>View Questions</a>
+  <h2 class="list">List of Quizzes</h2>
+
+  <div class="quiz-head">
+    <a class="view-q" href={% url "question-list" %}>View Questions</a> | 
     <a class="view-c" href={% url "choice-list" %}>View Choices</a>
-  </p>
+  </div>
+
+  <button type="button" class="btn btn-add" id="quiz">
+    <a href={% url "quiz_add" %}><img src="{% static 'img/add.png' %}" alt='add icon'></a>
+    Add quiz
+  </button>
+
   <div class="quiz-list-container">
     {% for object in object_list %}
       <div class="quiz-list-item">
-        <p><a href={% url "flashcards" object.id %}>  {{forloop.counter}}. {{object.name}}</a></p>
-          <p>
-            <a class="edit-item" id="quiz" href="{{object.id}}">Edit</a> | 
-            <a class="del-item" id="quiz" href="{{object.id}}/delete">Delete</a>
-          </p>
+        <p><a href={% url "flashcards" object.id %}> {{object.name}}</a></p>
+        <div class="quiz-icons">
+          <a class="edit" href="{{object.id}}"><img src='{% static "img/edit.png" %}' /></a>
+          <a class="del" href="{{object.id}}/delete"><img src='{% static "img/del.png" %}' /></a>
+        </div>
       </div>
     {% endfor %}
   </div>
+  <div class="pagination-sub">
+    {% include 'includes/pagination.html' %}
+  </div>
 {% endblock content %}
-  

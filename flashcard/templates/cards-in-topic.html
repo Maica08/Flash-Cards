@@ -2,16 +2,19 @@
 
 {% block navbar %}
 <section class="navbar">
+  <h3 class="logo" id="logo-navbar">StudyStack</h3>
   <a href="{% url 'home' %}" class="nb-btn">Home</a>
   <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
   <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
   <a href="{% url 'cards-list' %}" class="nb-btn">Cards</a>
-  {% comment %} <a href="{% url '' %}" class="nb-btn" id="active">Quizzes</a>
-  <a href="{% url '' %}" class="nb-btn" id="active">Reviews</a> {% endcomment %}
+  <a href="{% url 'quiz-list' %}" class="nb-btn">Quizzes</a>
+  <a class="logout" href="{% url 'logout' %}">Logout</a>
 </section>
 {% endblock navbar %}
 
 {% block content %}
+  <p id="back"><a href="{% url "topic-list" %}">Go back</a></p>
+
   <h2 class="list">Cards for {{topic.topic}}</h2>
 
   <div class="cards-in-topic">
@@ -27,6 +30,9 @@
         </div>
       </div>
   {% endfor %}
+  </div>
+  <div class="pagination-sub">
+    {% include 'includes/pagination.html' %}
   </div>
 
 {% endblock content %}

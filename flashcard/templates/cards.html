@@ -1,20 +1,28 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block navbar %}
   <section class="navbar">
+    <h3 class="logo" id="logo-navbar">StudyStack</h3>
     <a href="{% url 'home' %}" class="nb-btn">Home</a>
     <a href="{% url 'subject-list' %}" class="nb-btn">Subjects</a>
     <a href="{% url 'topic-list' %}" class="nb-btn">Topics</a>
     <a href="{% url 'cards-list' %}" class="nb-btn" id="active">Cards</a>
     <a href="{% url 'quiz-list' %}" class="nb-btn">Quizzes</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
   </section>
 {% endblock navbar %}
 
 {% block content %}
 
   <h2 class="list">List of Cards</h2>
+
+  <button type="button" class="btn btn-add" id="card">
+    <a href={% url "card_add" %}><img src="{% static 'img/add.png' %}" alt='add icon'></a>
+    Add card
+  </button>
+
   <div class="card-body"> 
-    <button type="button" class="btn btn-add" id="card"><a href={% url "card_add" %}>Add card</a></button>
     {% for topic in grouped_cards %}
       <h2><a href={% url 'cards_in_topic' subject_id=topic.grouper.subject.id topic_id=topic.grouper.id %}>Topic: {{ topic.grouper }}</a></h2>
       
@@ -30,10 +38,10 @@
             </div> 
           </div>
         </div>
-        <p>
-          <a class="edit-item" id="card" href="{{card.id}}">Edit</a> | 
-          <a class="del-item" id="card" href="{{card.id}}/delete">Delete</a>
-        </p> 
+        <div class="card-icons">
+          <a class="edit-item" id="card" href="{{card.id}}"><img id='edit' src='{% static "img/edit.png" %}' /></a>
+          <a class="del-item" id="card" href="{{card.id}}/delete"><img id='del'src='{% static "img/del.png" %}' /></a>
+        </div> 
       {% endfor %}
       </div>
     {% endfor %}

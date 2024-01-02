@@ -9,13 +9,13 @@
     content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="stylesheet" href='{% static "css/styles.css" %}'/>
     <title>{% block title %}Flash Cards{% endblock title %}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Train+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Train+One&display=swap" rel="stylesheet">
   <body>
     {% block navbar %}
     {% endblock navbar %}
-    
+
     <main>
 
       {% if messages %}
@@ -31,6 +31,6 @@
       {% block content %}
       {% endblock content %}
     </main>
-    {% include 'includes/footer.html' %}  
+    {% comment %} {% include 'includes/footer.html' %}   {% endcomment %}
   </body>
 </html>

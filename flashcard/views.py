@@ -18,6 +18,7 @@ class HomePageView(ListView):
     model = Card
     context_object_name = "home"
     template_name = "home.html"
+    paginate_by = 10
     
     def get_queryset(self):
         return Card.objects.filter(user=self.request.user)
@@ -32,6 +33,7 @@ class SubjectList(ListView):
     model = Subject
     context_object_name = "subject"
     template_name = "subjects.html"
+    paginate_by = 12
     
     def get_queryset(self):
         return Subject.objects.filter(user=self.request.user)
@@ -68,6 +70,7 @@ class SubjectDeleteView(DeleteView):
 class TopicsInSubject(ListView):
     context_object_name = "topics"
     template_name = "topics-in-subject.html"
+    paginate_by = 12
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -138,6 +141,7 @@ class TopicDeleteView(DeleteView):
 class CardsInTopics(ListView):
     context_object_name = "cards"
     template_name = "cards-in-topic.html"
+    paginate_by = 4
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -209,6 +213,7 @@ class QuizList(ListView):
     model = Quiz
     context_object_name = "quiz"
     template_name = "quiz.html"
+    paginate_by = 12
     
     def get_queryset(self):
         return Quiz.objects.filter(user=self.request.user)

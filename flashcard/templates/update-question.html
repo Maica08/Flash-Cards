@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p class="edit">Edit a new question:</p>
+<div class="forms">
+  <h5 class="edit">Edit a new question:</h5>
 
   <form action="{% url 'question_update' object.id %}" method='post'class="edit-field">
       {% csrf_token %}
       {{form.as_p}}
       <button name="submit" class="add-button">Save changes</button>
   </form>
+</div>
 
 {% endblock content %}

@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p class="add">Add a new subject:</p>
+<div class="forms">
+  <h5 class="add">Add a new subject:</h5>
 
   <form action="{% url 'subject_add' %}" method='post' class="add-field">
       {% csrf_token %}
       {{form.as_p}}
       <button name="submit" class="add-button">Add subject</button>
   </form>
+</div>
 
 {% endblock content %}

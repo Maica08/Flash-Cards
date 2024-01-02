@@ -4,15 +4,17 @@
 }
 
 body {
-    background-color: #DEE2FF;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    padding-bottom: 15vh;
+  background: rgb(194,199,230);
+  background: linear-gradient(90deg, rgba(194,199,230,1) 0%, rgba(169,146,186,1) 29%, rgba(222,175,182,1) 66%, rgba(231,219,221,1) 86%);
+  margin:0;
+  padding: 0;
+  padding-bottom: 15vh;
+  overflow-x: auto;
 }
 
 .navbar {
     display: flex;
+    width: 100%;
     position: sticky;
     top: 0; /* Stick to the top of the screen */
     margin: 0;
@@ -20,14 +22,35 @@ body {
     text-align: center;
     padding: 0;
     overflow: hidden;
-    background-color: #8E9AAF;
+    background-color: #4b505a88;
     height: 60px;
     z-index: 1;
 }
 
+.logo {
+  font-family: 'Train One';
+}
+
+#logo-navbar {
+  color: white;
+  position: static;
+  margin-right: 80px;
+  margin-left: -140px;
+  font-size: 20px;
+}
+
+.logout {
+  padding-top: 5px;
+  color: white;
+  width: 100px;
+  position: static;
+  margin-left: 80px;
+  margin-right: -140px;
+  font-size: 30px;
+  text-decoration: none;
+}
+
 .navbar .nb-btn { 
-    /* display: flex;
-    justify-content: center; */
     margin-left: 50px;
     margin-right: 50px;
     font-size: 30px;
@@ -41,17 +64,18 @@ body {
     display: flex;
     justify-content: center;
     text-align: center;
+    align-items: center;
     height: 100%;
     border-radius: 2px;
 }
 
-.navbar :hover {
+.navbar a:hover {
     background-color:  #c7cae6;
     color: black;
 }
 
 #active {
-    background-color: #DEE2FF;
+    background: #cebdc9;
     color: black;
     /* border: solid 3px #DEE2FF; */
 }
@@ -63,7 +87,7 @@ footer {
     justify-content: center;
     text-align: center;
     align-items: center; 
-    background-color: #8E9AAF;
+    background-color: #4b505acb;
     color: white; 
     height: 12vh;
 }
@@ -84,12 +108,12 @@ a {
     display: flex;
     margin-top: 25px;
     margin-bottom: 25px;
-    width: 50%;
-    border-radius: 15px;
+    width: 35%;
+    border-radius: 3px;
     border: solid 2px #c2a2b8;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     height: 6vh;
-    background-color: #FEEAFA;
+    background-color: #feeafa96;
     color: black;
     text-align: center;
     align-items: center;
@@ -181,6 +205,32 @@ a {
 
 /* subjects page */
 
+.btn-add {
+  background-color: #32384100;
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  border: none;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
+
+.btn-add img {
+  margin-top: 2px;
+  margin-right: 5px;
+  width: 30px;
+}
+
+.btn-add:hover {
+  background-color: #c7cae6;
+}
+
+#subject, #topic, #card {
+  left: 15%;
+}
+
 .list {
   position: relative;
   width: 70%;
@@ -188,16 +238,19 @@ a {
   margin-right: auto;
 }
 
-.subject-body, .topic-body, .card-body {
+.subject-body, .topic-body, .card-body, .quiz-list-container, .flashcard-container, .question-list-container, .quiz-questions-choices {
     position: absolute;
     background-color: #cbc0d373;
     border-radius: 3px;
     width: 70%;
-    height: 60%;
+    min-width: 800px;
+    height: 55%;
     left: 15%;
     right: 15%;
     vertical-align: center;
     overflow-y: auto;
+    border: solid 1px #8a80879a;
+    border-radius: 3px;
 }
 
 .subjects-list {
@@ -211,6 +264,8 @@ a {
     background-color: #FEEAFA;
     text-align: center;
     transition: transform 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .subjects-list:hover {
@@ -222,13 +277,42 @@ a {
     color: black;
     font-size: 25px;
     margin: auto;
-    top: 25%;
+    top: 30%;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.subjects-list:hover #sub, .topic-body a:hover, .card-body h2 a:hover, .topics-in-subject a:hover{
+.subjects-list:hover #sub, 
+.topic-body a:hover, 
+.card-body h2 a:hover, 
+.topics-in-subject a:hover, 
+.quiz-list-item a:hover, 
+.quiz-head a:hover, 
+.question-list-container a:hover, 
+#back a:hover,
+.logout a:hover{
     color: lightcoral;
     text-decoration: underline;
+}
+
+.icons {
+  position: relative;
+  bottom: -24px;
+  right: -40%;
+}
+
+.icons img {
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#edit {
+  width: 15px;
+}
+
+#del {
+  width: 17px;
 }
 
 
@@ -257,7 +341,7 @@ a {
 
 .topic-container {
   display: flex;
-  background-color: #DEE2FF;
+  background-color: #dee2ffa6;
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 2%;
@@ -278,10 +362,31 @@ a {
   text-align: center;
   margin-left: 2%;
   margin-right: 2%;
-  width: 15%;
-  min-width: 10%;
+  min-width: 200px;
+  /* min-width: 70px; */
   font-size: 25px;
   height: 100%;
+}
+
+.topic-icons, .card-icons {
+  padding: auto;
+  display: block;
+  width: 30px;
+  height: 60px;
+  margin-right: 15px;
+  margin-left: 0;
+}
+
+.topic-icons img, .card-icons img {
+  margin-top: 3px;
+}
+
+.topic-icons #edit, .card-icons #edit {
+  width: 20px;
+}
+
+.topic-icons #del, .card-icons #del {
+  width: 23px;
 }
 
 /* cards page */
@@ -295,7 +400,7 @@ a {
   margin-top: 0;
   margin-bottom: 0;
   padding: 1%;
-  background-color: #c7cae6;
+  background-color: #c7cae69d;
   border-top: solid 1px #c2a2b8;
   border-bottom: solid 1px #c2a2b8;
 }
@@ -316,7 +421,7 @@ a {
   margin-bottom: 2%;
   overflow-x: auto;
   overflow-y: hidden;
-  background-color: #c7cae6;
+  background-color: #6f70808c;
   border-radius: 3px;
   border: solid 1px #8a8087;
 }
@@ -329,7 +434,7 @@ a {
   perspective: 1000px;
   font-family: sans-serif;
   margin-left: 2%;
-  margin-right: 2%;
+  margin-right: 1%;
   margin-top: auto;
   margin-bottom: auto;
   /* white-space: nowrap; */
@@ -373,10 +478,8 @@ a {
 }
 
 .back {
-  background: rgb(143,96,176);
-  background: linear-gradient(288deg, rgba(143,96,176,1) 0%, rgba(135,97,162,1) 33%, rgba(203,142,151,1) 69%, rgba(222,175,182,1) 100%);
-  color: white;
-  transform: rotateY(180deg);
+  background: rgb(150,167,200);
+  background: linear-gradient(38deg, rgba(150,167,200,1) 38%, rgba(186,190,214,1) 67%, rgba(212,198,223,1) 100%);  transform: rotateY(180deg);
   padding-left: 5px;
   padding-right: 5px;
   font-size: 15px;
@@ -396,7 +499,7 @@ a {
   margin-bottom: 2%;
   overflow: hidden;
   align-items: center;
-  background-color: #c7cae6;
+  background-color: #6f70808c;
   border-radius: 3px;
   border: solid 1px #8a8087;
   padding: 2%;
@@ -406,6 +509,14 @@ a {
   margin-bottom: 3%;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.card-icons {
+  margin-top: 2%;
+}
+
+#card #edit {
+  padding-left: 2px;
 }
 
 /* topics-in-subject page */
@@ -445,3 +556,376 @@ a {
   color: #323841;
   font-weight: 500;
 }
+
+
+/* Quizzes page */
+
+.quiz-list-container {
+  padding: 2%;
+}
+
+.quiz-list-item, .flashcard {
+  display: inline-block;
+  margin: 1.5%; 
+  min-width: 30%;
+  background-color:#c7cae6bd;
+  padding: 1%;
+  border-radius: 3px;
+  border: solid 1px #32384170;
+}
+
+.edit, .del {
+    vertical-align: middle;
+    margin: 2px;
+}
+
+.quiz-icons .edit img {
+  width: 20px;
+}
+
+.quiz-list-item p {
+    font-size: 30px;
+    text-align: center;
+}
+
+.quiz-list-item a, .quiz-head a {
+  color: black;
+  text-decoration: none;
+}
+
+#quiz, #add-choice{
+  margin-left: 15%;
+  font-size: 20px;
+}
+
+.quiz-head {
+  margin-top: 5px;
+  margin-bottom: -39px;
+  font-size: 22px;
+  margin-left: 22%;
+  width: 15.5%;
+  min-width: 300px;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #dee2ffa6;
+  border-radius: 3px;
+}
+
+.quiz-head a {
+  margin: 5px;
+}
+
+/* flashcard site */
+.take-quiz{
+  margin-left: 15%;
+  font-size: 15px;
+  background-color: #32384100;
+  border-radius: 1px;
+  width: 100px;
+  height: 30px;
+  border: solid 1px #23262ce7;
+}
+
+.take-quiz a {
+  color: black;
+  text-decoration: none;
+}
+
+.take-quiz:hover {
+  background-color: #85878a;
+}
+
+.take-quiz:hover a {
+  color: white;
+}
+
+.flashcard {
+  overflow:hidden;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* quiz-page */
+
+.flash-quiz {
+  margin-top: 5%;
+}
+
+.flashcard-container {
+  padding: 1%;
+}
+
+.flashcard-container h4 {
+  font-size: 25px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.flashcard-container label {
+  margin-left: 30px;
+}
+
+.submit-quiz {
+  font-size: 15px;
+  background-color: #32384100;
+  border-radius: 1px;
+  width: 100px;
+  height: 30px;
+  border: solid 1px #23262ce7;
+}
+
+.submit-quiz:hover {
+  background-color: #85878a;
+  color: white;
+}
+
+/* results page */
+
+#results h4 {
+  margin-top: 5px;
+}
+
+#results .choices {
+  margin-bottom: 25px;
+}
+
+.score {
+  margin-left: 15%;
+  font-size: 30px;
+  color:#323841;
+}
+
+/* question page */
+
+.question-list-container h2, .quiz-questions-choices h2 {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+.question-list-container a, .quiz-questions-choices a, #back a {
+  text-decoration: none;
+  color: black;
+}
+
+.question-item, .question-choices {
+  display: inline-block;
+  margin-left: 5%; 
+  margin-right: 5%; 
+  margin-bottom: 25px;
+  width: 90%;
+  min-width: 900px;
+  height: 300px;
+  background-color:#c7cae691;
+  padding: 0 1.5%;
+  border-radius: 3px;
+  border: solid 1px #32384170;
+  text-align: left;
+  font-size: 20px;
+  overflow-y: auto;
+}
+
+.question-item img, .question-choices img {
+  width: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: -50px;
+}
+
+#back {
+  margin: 10px;
+  font-size: 20px;
+}
+
+/* choices page */
+
+/* login form */
+
+.user form {
+  padding: 10px;
+  border: 1px solid #29252598;
+  border-radius: 8px;
+  background-color: #ddd6ffb2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#login h1, #register h1 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.user label {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.user input[type="text"],
+.user input[type="password"],
+.user input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #5a5a5a;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.user input[type="submit"] {
+  background-color: #533d9291;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user input[type="submit"]:hover {
+  background-color: #8a7ab991;
+}
+
+.user p {
+  text-align: left;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.user a {
+  color: #1a1b1a;
+}
+
+.user a:hover {
+  text-decoration: underline;
+}
+
+#login {
+  width: 400px;
+  margin-top: -40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#register {
+  width: 500px;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-logo {
+  font-family: 'Train One';
+  color: rgb(34, 33, 33);
+  font-size: 100px;
+  width: 100%;
+  margin-top: 120px;
+  text-align: center;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.page-item {
+  margin-right: 5px;
+}
+
+.page-link {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #dee2e6;
+  color: #e94c4c;
+  background-color: #ffcedad0;
+}
+
+.page-link:hover {
+  background-color: #f0f0f0;
+}
+
+/* Adjusted selectors to accommodate classes with spaces */
+.page-item.disabled {
+  /* Styles for disabled pagination item */
+  color: #c6c1cc;
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+.page-item.active {
+  /* Styles for active pagination item */
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  z-index: 3;
+}
+
+.pagination-sub {
+  position: fixed;
+  bottom: 12%;
+  left: 20%;
+  right: 20%;
+}
+
+/* forms */
+
+.forms p {
+  font-size: 16px;
+}
+
+.forms h5 {
+  /* width: 100%; */
+  text-align: center;
+}
+
+.forms form{
+  max-width: 400px; 
+  margin: auto;
+  padding: 20px;
+  background-color: #f59ab5a2;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.forms .edit, .forms .add, .forms .delete{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.forms .edit-field, .forms .add-field, .forms .delete-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.forms .edit-button, .forms .add-button, .forms .delete-button {
+  background-color: #67239e;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.forms .edit-button:hover, .forms .add-button:hover, .forms .delete-button:hover {
+  background-color: #9146ce;
+}
+
+.forms .edit-field input, .forms .add-button input, .forms .delete-button input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #66587c;
+  border-radius: 5px;
+}
+
+

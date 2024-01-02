@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p class="add">Add a new quiz:</p>
-
-  <form action="{% url 'quiz_add' %}" method='post' class="add-field">
-      {% csrf_token %}
-      {{form.as_p}}
-      <button class="add-button" name="submit">Add quiz</button>
-  </form>
+<div class="forms">
+    <h5 class="add">Add a new quiz:</h5>
+  
+    <form action="{% url 'quiz_add' %}" method='post' class="add-field">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="add-button" name="submit">Add quiz</button>
+    </form>
+</div>
 
 {% endblock content %}

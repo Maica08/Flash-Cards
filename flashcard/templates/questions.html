@@ -1,26 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 {% block navbar %}
 {% endblock navbar %}
 
 {% block content %}
-
+  <p id="back"><a href="{% url "quiz-list" %}">Go back</a></p>
   <h2 class="list">List of Questions</h2>
-  <p><a href="{% url "quiz-list" %}">Go back</a></p>
 
-  <button type="button" class="btn btn-add" id="question"><a href={% url 'question_add' %}>Add question</a></button>
+  <button type="button" class="btn btn-add" id="quiz"><a href={% url 'question_add' %}>
+    <img src="{% static 'img/add.png' %}" alt='add icon'></a>
+    Add question
+  </button>
 
-  <div class="quiz-questions">
+  <div class="question-list-container">
     {% for quiz in grouped_questions %}
-      <h2><a href={% url 'flashcards' quiz_id=quiz.grouper.id %}>Questions for {{quiz.grouper.name}}</a></h2>
-      {% for question in quiz.list %}
-        <p>{{forloop.counter}}. {{question}}</p>
-        <p>
-          <a class="edit-item" id="question" href="{{question.id}}">Edit</a> | 
-          <a class="del-item" id="question" href="{{question.id}}/delete">Delete</a>
-        </p> 
+      <h2>Questions for <a href={% url 'flashcards' quiz_id=quiz.grouper.id %}>{{quiz.grouper.name}}</a></h2>
+      <div class="question-item" id="questions">
+        {% for question in quiz.list %}
+        <div class="question-icon">
+          <p id="question-item">
+            <a class="edit-item" id="question" href="{{question.id}}"><img src='{% static "img/edit.png" %}' /></a>
+            <a class="del-item" id="question" href="{{question.id}}/delete"><img src='{% static "img/del.png" %}' /></a>
+            {{forloop.counter}}. {{question}}</p>
+        </div>
       {% endfor %}
+      </div>
     {% endfor %}
   </div>
 {% endblock content %}

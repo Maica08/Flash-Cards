@@ -1,14 +1,17 @@
-{% extends "base.html" %}
+{% extends "base_no_footer.html" %}
 
 {% block content %}
 
-  <form method="POST" novalidate>
-    {% csrf_token %}
-    <h1>Log In</h1>
-    {{form.as_p}}
-    <input type="submit" value="Login"/>
-    <p>Don't have an account? <a href="{%url 'register' %}">Register</a></p>
-  </form>
+  <h1 class="login-logo">StudyStack</h1>
+  <div class="user" id="login">
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <h1>Log In</h1>
+      {{form.as_p}}
+      <input type="submit" value="Login"/>
+      <p class="link">Don't have an account? <a href="{%url 'register' %}">Register</a></p>
+    </form>
+  </div>
 
 {% endblock content %}
 

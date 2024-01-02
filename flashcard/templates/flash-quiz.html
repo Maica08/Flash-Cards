@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>{{ quiz.name }}</h1>
+  <div class="flash-quiz">
+    <h1 class="list">Quiz | {{ quiz.name }}</h1>
   
-  {% for question in questions %}
-    <h2>{{ question.card.back }}</h2>
-    
-    <form action="{% url 'submit_quiz' quiz.id %}" method="post">
-      {% csrf_token %}
-      {% for choice in question.choice_set.all %}
-        <label>
-          <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}">
-          {{ choice.card.front }}
-        </label><br>
-      {% endfor %}
-      <br>
-    {% endfor %}
+    <div class="flashcard-container">
+      <form action="{% url 'submit_quiz' quiz.id %}" method="post">
+        {% for question in questions %}
+          <h4>{{ question.card.back }}</h4>
+            {% csrf_token %}
+            {% for choice in question.choice_set.all %}
+              <label>
+                <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}">
+                {{ choice.card.front }}
+              </label><br>
+            {% endfor %}
+            <br>
+
+        {% endfor %}
+        <button class="submit-quiz" type="submit">Submit</button>
+      </form>
+    </div>
+  <div/>
   
-    <button type="submit">Submit</button>
-  </form>
 {% endblock %}
