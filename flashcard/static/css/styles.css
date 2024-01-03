@@ -3,6 +3,14 @@
     box-sizing: border-box;
 }
 
+h1, h2, h3, a {
+  font-family: 'Cambria', sans-serif;
+}
+
+p, h4, h5, button {
+  font-family: 'Open Sans', sans-serif;
+}
+
 body {
   background: rgb(194,199,230);
   background: linear-gradient(90deg, rgba(194,199,230,1) 0%, rgba(169,146,186,1) 29%, rgba(222,175,182,1) 66%, rgba(231,219,221,1) 86%);
@@ -37,10 +45,11 @@ body {
   margin-right: 80px;
   margin-left: -140px;
   font-size: 20px;
+  margin-top: 15px;
 }
 
 .logout {
-  padding-top: 5px;
+  padding-top: 0;
   color: white;
   width: 100px;
   position: static;
@@ -256,7 +265,7 @@ a {
 .subjects-list {
     display: inline-block;
     width: 30%;
-    height: 15%;
+    height: 16%;
     margin: 1.5%;
     border-radius: 2px;
     border: solid 2px #c2a2b8;
@@ -579,6 +588,9 @@ a {
     margin: 2px;
 }
 
+.quiz-icons {
+  margin-left: 280px;
+}
 .quiz-icons .edit img {
   width: 20px;
 }
