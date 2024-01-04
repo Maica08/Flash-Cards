@@ -22,7 +22,7 @@ def sign_in(request):
             
             if user:
                 login(request, user)
-                messages.success(request,f'Hi {username.title()}, welcome back!')
+                messages.success(request,f'Hi {username}, welcome back!')
                 return redirect('home')
             
         messages.error(request,f'Invalid username or password')
