@@ -7,7 +7,7 @@
 {% block content %}
   <p id="back"><a href="{% url "quiz-list" %}">Go back</a></p>
   <h2 class="list">Pointers for {{quiz.name}}</h2>
-  <button class="take-quiz"><a href={% url 'flash_quiz' quiz_id=quiz.id %} target='_blank'>Take Quiz</a></button>
+  <button class="take-quiz"><a href={% url 'flash_quiz' quiz_id=quiz.id %}>Take Quiz</a></button>
   <div class="flashcard-container">
     {% for object in object_list %}
       <div class="flashcard">

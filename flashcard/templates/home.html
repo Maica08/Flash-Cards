@@ -5,19 +5,19 @@
 {% endblock navbar %}
 
 {% block content %}
-  <h1 class="home-greet">Welcome {{request.user}}!</h1>
+  {% comment %} <h1 class="home-greet">Current Flash Cards</h1> {% endcomment %}
   <br/>
   <section class="home-body">
     {% for object in object_list %}
-      <div class="home-card"> <!--card-->
-        <div class="card-img"> <!--card__image-->
+      <div class="home-card"> 
+        <div class="card-img">
           <div class="text">
-            <p>{{object.back}}</p> <!--img-->
+            <p>{{object.back}}</p>
           </div>
         </div>
-        <div class="card-content"> <!--card__content-->
-          <h3>{{object.front}}</h3> <!--card__title-->
-          <h4>{{object.topic}}</h4> <!--card__text-->
+        <div class="card-content">
+          <h3>{{object.front}}</h3>
+          <h4>{{object.topic}}</h4>
         </div>
       </div>
     {% endfor %}

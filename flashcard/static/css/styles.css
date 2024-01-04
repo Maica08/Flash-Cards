@@ -4,12 +4,15 @@
 }
 
 h1, h2, h3, a {
-  font-family: 'Cambria', sans-serif;
+  font-family: 'Lilita One', sans-serif;
+  font-weight: 100;
 }
 
 p, h4, h5, button {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Cutive Mono', monospace;
+  font-weight: 600;
 }
+
 
 body {
   background: rgb(194,199,230);
@@ -51,12 +54,13 @@ body {
 .logout {
   padding-top: 0;
   color: white;
-  width: 100px;
+  width: 120px;
   position: static;
   margin-left: 80px;
   margin-right: -140px;
   font-size: 30px;
   text-decoration: none;
+  font-family: 'Cutive Mono', monospace;
 }
 
 .navbar .nb-btn { 
@@ -112,31 +116,13 @@ a {
 
 /* home page */
 
-.home-greet {
-    /* position: relative; */
-    display: flex;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    width: 35%;
-    border-radius: 3px;
-    border: solid 2px #c2a2b8;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    height: 6vh;
-    background-color: #feeafa96;
-    color: black;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .home-body {
+  margin-top: 10vh;
     display: flex;
     flex-wrap: wrap;
     padding-left: 5%;
     padding-right: 5%;
-    /* justify-content: center; */
+    min-height: 50vh;
 }
 
 .home-card {
@@ -187,7 +173,6 @@ a {
   .card-content h3 {
     position: relative;
     font-size: 24px;
-    font-weight: bold;
     margin-bottom: 10px;
   }
   
@@ -298,7 +283,8 @@ a {
 .quiz-head a:hover, 
 .question-list-container a:hover, 
 #back a:hover,
-.logout a:hover{
+.logout a:hover,
+.card-quizzes a:hover{
     color: lightcoral;
     text-decoration: underline;
 }
@@ -428,6 +414,8 @@ a {
   margin-right: auto;
   margin-top: 2%;
   margin-bottom: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
   overflow-x: auto;
   overflow-y: hidden;
   background-color: #6f70808c;
@@ -493,6 +481,13 @@ a {
   padding-right: 5px;
   font-size: 15px;
   overflow-y: auto;
+}
+
+.card-quizzes a {
+  display: block;
+  text-decoration: none;
+  color: rgb(43, 42, 42);
+  font-size: 12px;
 }
 
 /* cards-in-topic page */
@@ -614,7 +609,7 @@ a {
   margin-top: 5px;
   margin-bottom: -39px;
   font-size: 22px;
-  margin-left: 22%;
+  margin-left: 23%;
   width: 15.5%;
   min-width: 300px;
   height: 39px;
@@ -889,21 +884,25 @@ a {
 /* forms */
 
 .forms p {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .forms h5 {
   /* width: 100%; */
   text-align: center;
+  margin-top: 5%;
 }
 
 .forms form{
-  max-width: 400px; 
+  max-width: 500px; 
+  max-height: 400px;
   margin: auto;
+  margin-top: 3%;
   padding: 20px;
   background-color: #f59ab5a2;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
 .forms .edit, .forms .add, .forms .delete{
@@ -919,11 +918,13 @@ a {
 
 .forms .edit-button, .forms .add-button, .forms .delete-button {
   background-color: #67239e;
+  position: relative;
+  bottom: -10%;
   color: #fff;
   border: none;
   padding: 10px 15px;
-  margin-top: 10px;
   cursor: pointer;
+  margin-top: 5%;
   border-radius: 5px;
   font-size: 16px;
   transition: background-color 0.3s ease;
@@ -938,6 +939,18 @@ a {
   margin-bottom: 10px;
   border: 1px solid #66587c;
   border-radius: 5px;
+}
+
+
+.forms .cancel {
+  text-decoration: none;
+  color: #66587c;
+  margin-left: 20px;
+}
+
+.forms .del-btn {
+  display: flex;
+  justify-content: center;
 }
 
 

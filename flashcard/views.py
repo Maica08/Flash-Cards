@@ -18,7 +18,7 @@ class HomePageView(ListView):
     model = Card
     context_object_name = "home"
     template_name = "home.html"
-    paginate_by = 10
+    paginate_by = 5
     
     def get_queryset(self):
         return Card.objects.filter(user=self.request.user)
@@ -70,7 +70,7 @@ class SubjectDeleteView(DeleteView):
 class TopicsInSubject(ListView):
     context_object_name = "topics"
     template_name = "topics-in-subject.html"
-    paginate_by = 12
+    paginate_by = 6
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -121,6 +121,11 @@ class TopicCreateView(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
         
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+        
 
 @method_decorator(login_required, name='dispatch')
 class TopicUpdateView(UpdateView):
@@ -128,6 +133,15 @@ class TopicUpdateView(UpdateView):
     form_class = TopicForm
     template_name = "update-topic.html"
     success_url = reverse_lazy("topic-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
     
 
 @method_decorator(login_required, name='dispatch')
@@ -172,6 +186,7 @@ class CardList(ListView):
         grouped_cards = {}
         for card in cards:
             topic = card.topic
+            quiz = card.flash_quiz
             if topic not in grouped_cards:
                 grouped_cards[topic] = []   
             grouped_cards[topic].append(card)
@@ -191,6 +206,11 @@ class CardCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
         
 
 @method_decorator(login_required, name='dispatch')
@@ -199,6 +219,16 @@ class CardUpdateView(UpdateView):
     form_class = CardForm
     template_name = "update-card.html"
     success_url = reverse_lazy("cards-list")
+    
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
     
 
 @method_decorator(login_required, name='dispatch')
@@ -213,7 +243,7 @@ class QuizList(ListView):
     model = Quiz
     context_object_name = "quiz"
     template_name = "quiz.html"
-    paginate_by = 12
+    paginate_by = 6
     
     def get_queryset(self):
         return Quiz.objects.filter(user=self.request.user)
@@ -229,6 +259,11 @@ class QuizCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
         
 
 @method_decorator(login_required, name='dispatch')
@@ -237,6 +272,15 @@ class QuizUpdateView(UpdateView):
     form_class = QuizForm
     template_name = "update-quiz.html"
     success_url = reverse_lazy("quiz-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
     
 
 @method_decorator(login_required, name='dispatch')
@@ -298,7 +342,11 @@ class QuestionCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
         
 
 @method_decorator(login_required, name='dispatch')
@@ -307,6 +355,15 @@ class QuestionUpdateView(UpdateView):
     form_class = QuestionForm
     template_name = "update-question.html"
     success_url = reverse_lazy("question-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
     
 
 @method_decorator(login_required, name='dispatch')
@@ -358,6 +415,11 @@ class ChoiceCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
         
 
 @method_decorator(login_required, name='dispatch')
@@ -366,6 +428,15 @@ class ChoiceUpdateView(UpdateView):
     form_class = ChoiceForm
     template_name = "update-choice.html"
     success_url = reverse_lazy("choice-list")
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
     
 
 @method_decorator(login_required, name='dispatch')
@@ -400,25 +471,20 @@ class SubmitQuiz(View):
     def post(self, request, *args, **kwargs):
         quiz_id = kwargs.get('quiz_id')
         quiz = get_object_or_404(Quiz, id=quiz_id)
-        questions = Question.objects.filter(user=self.request.user, card__in=quiz.card_set.all())
+        questions = Question.objects.filter(user=self.request.user, card__in=quiz.card_set.all(), quiz=quiz)
 
         score = 0
         selected_choices = {}
+        
         for question in questions:
             selected_choice_id = int(request.POST.get(f'question_{question.id}', 0))
             selected_choices[question.id] = selected_choice_id
 
-            print(f"Selected choices: {selected_choices}")
-            print(f"Question: {question}")
-            
             for choice in question.choice_set.all():
                 selected_choice = selected_choices.get(question.id, None)
                 if selected_choice == choice.id and choice.is_correct:
                     score += 1
                         
-        
-        print(f"Score: {score}")
-                            
         context = {
             'quiz': quiz,
             'questions': questions,

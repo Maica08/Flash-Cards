@@ -29,7 +29,7 @@ class Topic(BaseModel):
 
 class Quiz(BaseModel):
     name = models.CharField(max_length=255, null=True, blank=False)
-    topic = models.ForeignKey(Topic, null=True, blank=False, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, null=True, blank=True, on_delete=models.CASCADE)
     
     
     class Meta:
@@ -43,7 +43,7 @@ class Card(BaseModel):
     front = models.CharField(max_length=255)
     back = models.TextField()
     topic = models.ForeignKey(Topic, null=True, blank=False, on_delete=models.CASCADE)
-    flash_quiz = models.ManyToManyField(Quiz, blank=False)       
+    flash_quiz = models.ManyToManyField(Quiz, blank=True)       
     
     def __str__(self):
         return self.front
@@ -54,7 +54,7 @@ class Question(BaseModel):
     card = models.ForeignKey(Card,null=True, blank=False, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.card.back
+        return f"{self.card.back}"
 
 
 class Choice(BaseModel):

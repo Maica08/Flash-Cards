@@ -34,6 +34,12 @@
           <a class="edit-item" id="card" href="{{card.id}}"><img id='edit' src='{% static "img/edit.png" %}' /></a>
           <a class="del-item" id="card" href="{{card.id}}/delete"><img id='del'src='{% static "img/del.png" %}' /></a>
         </div> 
+        <div class="card-quizzes">
+          <h5>Can be found at quiz:</h5>            
+          {% for quiz in card.flash_quiz.all %}
+          <a href="{% url 'flashcards' quiz.id %}">{{ quiz.name }}</a>
+          {% endfor %}
+        </div>
       {% endfor %}
       </div>
     {% endfor %}

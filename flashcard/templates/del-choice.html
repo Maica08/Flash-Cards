@@ -7,9 +7,9 @@
   <form method='post'>
     {% csrf_token %}
     <p class='del-m'>Are you sure that you want to delete choice "{{object}}"?</p>
-    <div>
+    <div class="del-btn">
       <button type="submit" class='confirm'>Confirm</button>
-      <button><a href="{% url 'choice-list' %}" class='cancel'>Cancel</a></button>
+      <a href="{% url 'choice-list' %}" class='cancel'>Cancel</a>
     </div>
   </form>
 </div>

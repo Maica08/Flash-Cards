@@ -6,6 +6,7 @@
 {% endblock navbar %}
 
 {% block content %}
+  <p id="back"><a href="{% url "quiz-list" %}">Go back</a></p>
   <h2 class="list">{{ quiz.name }} - Results</h2>
 
   <h3 class="score">Your score: {{ score }}/{{questions|length}}</h3>
